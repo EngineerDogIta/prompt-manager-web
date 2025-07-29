@@ -261,7 +261,7 @@ class PromptViewer {
         container.textContent = yamlContent;
         
         // Apply syntax highlighting if available
-        this.applySyntaxHighlighting(container);
+        // this.applySyntaxHighlighting(container);
     }
     
     /**
