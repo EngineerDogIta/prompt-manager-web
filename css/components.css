@@ -91,6 +91,10 @@
     font-size: var(--font-size-md);
 }
 
+.btn--responsive span {
+    display: inline;
+}
+
 /* Tree View Component */
 .tree-view {
     flex: 1;
@@ -650,6 +654,16 @@
         left: var(--space-md);
         right: var(--space-md);
         max-width: none;
+    }
+}
+
+@media (max-width: 1400px) {
+    .btn--responsive span {
+        display: none;
+    }
+
+    .btn--responsive {
+        padding: var(--space-sm);
     }
 }
 
