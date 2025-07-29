@@ -1,0 +1,24 @@
+{
+  "name": "prompt-manager-web-tests",
+  "version": "1.0.0",
+  "description": "Test d'integrazione per Prompt Collection Manager",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "install-browsers": "playwright install",
+    "report": "playwright show-report"
+  },
+  "keywords": ["testing", "playwright", "integration", "web-app"],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+} 

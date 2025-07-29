@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Collection Manager</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/components.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23007acc'><path d='M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z'/></svg>">
+</head>
+<body>
+    <div id="app" class="app">
+        <!-- Header -->
+        <header class="app__header">
+            <div class="header__left">
+                <h1 class="header__title">Prompt Collection Manager</h1>
+            </div>
+            <div class="header__center">
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Cerca prompt..."
+                        autocomplete="off"
+                    >
+                    <button id="search-clear" class="search-clear" title="Cancella ricerca">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="header__right">
+                <button id="theme-toggle" class="btn btn--icon" title="Cambia tema">
+                    <svg class="theme-icon theme-icon--light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="theme-icon theme-icon--dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <button id="settings-btn" class="btn btn--icon" title="Impostazioni">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1m17-4a4 4 0 01-8 0 4 4 0 018 0zM7 21a4 4 0 01-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app__main">
+            <!-- Left Panel - Tree View -->
+            <aside class="sidebar">
+                <div class="sidebar__header">
+                    <button id="add-prompt-btn" class="btn btn--primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Nuovo Prompt
+                    </button>
+                    <button id="add-folder-btn" class="btn btn--secondary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"></path>
+                        </svg>
+                        Nuova Cartella
+                    </button>
+                    <button id="expand-all-btn" class="btn btn--text btn--small" title="Espandi tutto">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <polyline points="9 21 3 21 3 15"></polyline>
+                            <line x1="21" y1="3" x2="14" y2="10"></line>
+                            <line x1="3" y1="21" x2="10" y2="14"></line>
+                        </svg>
+                    </button>
+                    <button id="collapse-all-btn" class="btn btn--text btn--small" title="Comprimi tutto">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="4 14 10 14 10 20"></polyline>
+                            <polyline points="20 10 14 10 14 4"></polyline>
+                            <line x1="14" y1="10" x2="21" y2="3"></line>
+                            <line x1="3" y1="21" x2="10" y2="14"></line>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="sidebar__content">
+                    <div id="tree-view" class="tree-view">
+                        <!-- Tree structure will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="sidebar__footer">
+                    <button id="import-btn" class="btn btn--text">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path>
+                            <polyline points="14,2 14,8 20,8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="12" y1="17" x2="12" y2="9"></line>
+                        </svg>
+                        Importa
+                    </button>
+                    <button id="export-btn" class="btn btn--text">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path>
+                            <polyline points="14,2 14,8 20,8"></polyline>
+                            <line x1="12" y1="11" x2="12" y2="21"></line>
+                            <polyline points="8,15 12,11 16,15"></polyline>
+                        </svg>
+                        Esporta
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Right Panel - Content View -->
+            <section class="content">
+                <div id="content-area" class="content__area">
+                    <!-- Welcome Screen -->
+                    <div id="welcome-screen" class="welcome-screen">
+                        <div class="welcome-screen__content">
+                            <svg class="welcome-screen__icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"></path>
+                            </svg>
+                            <h2>Benvenuto in Prompt Collection Manager</h2>
+                            <p>Seleziona un prompt dalla barra laterale per visualizzarne i dettagli, oppure crea un nuovo prompt per iniziare.</p>
+                            <div class="welcome-screen__actions">
+                                <button id="welcome-add-prompt-btn" class="btn btn--primary">
+                                    Crea il tuo primo prompt
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Prompt Viewer -->
+                    <div id="prompt-viewer" class="prompt-viewer" style="display: none;">
+                        <div class="prompt-viewer__header">
+                            <div class="prompt-viewer__tabs">
+                                <button id="tab-structured" class="tab tab--active">Vista Strutturata</button>
+                                <button id="tab-yaml" class="tab">YAML Grezzo</button>
+                            </div>
+                            <div class="prompt-viewer__actions">
+                                <button id="copy-prompt-btn" class="btn btn--secondary">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                    Copia negli appunti
+                                </button>
+                                <button id="edit-prompt-btn" class="btn btn--primary">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                    </svg>
+                                    Modifica
+                                </button>
+                                <button id="delete-prompt-btn" class="btn btn--danger">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="3,6 5,6 21,6"></polyline>
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    </svg>
+                                    Elimina
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="prompt-viewer__content">
+                            <div id="structured-view" class="structured-view">
+                                <!-- Structured content will be populated by JavaScript -->
+                            </div>
+                            <div id="yaml-view" class="yaml-view" style="display: none;">
+                                <pre><code id="yaml-content"></code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for Prompt Editor -->
+    <div id="prompt-editor-modal" class="modal" style="display: none;">
+        <div class="modal__backdrop"></div>
+        <div class="modal__content">
+            <div class="modal__header">
+                <h3 id="editor-title">Nuovo Prompt</h3>
+                <button id="close-editor-btn" class="btn btn--icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal__body">
+                <form id="prompt-form" class="prompt-form">
+                    <!-- Form fields will be populated by JavaScript -->
+                </form>
+            </div>
+            <div class="modal__footer">
+                <button type="button" id="cancel-editor-btn" class="btn btn--secondary">Annulla</button>
+                <button type="submit" form="prompt-form" id="save-prompt-btn" class="btn btn--primary">Salva</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Context Menu -->
+    <div id="context-menu" class="context-menu" style="display: none;">
+        <!-- Context menu items will be populated by JavaScript -->
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- JavaScript -->
+    <script src="lib/js-yaml.min.js"></script>
+    <script src="js/utils/dom-utils.js"></script>
+    <script src="js/utils/theme-utils.js"></script>
+    <script src="js/models/prompt.js"></script>
+    <script src="js/models/storage.js"></script>
+    <script src="js/views/tree-view.js"></script>
+    <script src="js/views/prompt-viewer.js"></script>
+    <script src="js/views/prompt-editor.js"></script>
+    <script src="js/controllers/search-controller.js"></script>
+    <script src="js/controllers/app-controller.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
